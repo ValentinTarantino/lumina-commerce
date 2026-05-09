@@ -993,7 +993,9 @@ export default function Home() {
                         </div>
                         <div>
                           <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em] mb-1 italic">{t.tracking.status}</p>
-                          <h4 className="text-2xl font-black italic uppercase text-indigo-400">{trackingResult.status}</h4>
+                          <h4 className="text-2xl font-black italic uppercase text-indigo-400">
+                            {t.tracking.orderStatuses[trackingResult.status as keyof typeof t.tracking.orderStatuses] || trackingResult.status}
+                          </h4>
                         </div>
                       </div>
 

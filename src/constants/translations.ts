@@ -64,7 +64,12 @@ export const translations = {
       contents: "Contenido del Paquete",
       error: "Código inválido",
       historyDate: "Fecha",
-      historyId: "Identificador"
+      historyId: "Identificador",
+      orderStatuses: {
+        PROCESANDO: "PROCESANDO",
+        ENVIADO: "ENVIADO",
+        ENTREGADO: "ENTREGADO"
+      }
     },
     cart: {
       titleCart: "Tu Carrito.",
@@ -185,7 +190,12 @@ export const translations = {
       contents: "Package Contents",
       error: "Invalid code",
       historyDate: "Date",
-      historyId: "Identifier"
+      historyId: "Identifier",
+      orderStatuses: {
+        PROCESANDO: "PROCESSING",
+        ENVIADO: "SHIPPED",
+        ENTREGADO: "DELIVERED"
+      }
     },
     cart: {
       titleCart: "Your Cart.",
