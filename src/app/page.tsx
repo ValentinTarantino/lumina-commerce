@@ -145,6 +145,7 @@ export default function Home() {
     p.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  return (
     <main className="min-h-screen bg-[#020203] text-white selection:bg-indigo-500/30">
       <CartDrawer 
         isOpen={isCartOpen} 
