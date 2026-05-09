@@ -6,7 +6,7 @@ import { useLang } from "@/store/useLang";
 import { useSession, signIn } from "next-auth/react";
 import { translations } from "@/constants/translations";
 
-export default function CartDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+export default function CartDrawer({ isOpen, onClose, onOrderSuccess }: { isOpen: boolean, onClose: () => void, onOrderSuccess?: () => void }) {
   const { lang } = useLang();
   const t = translations[lang].cart;
   const tc = translations[lang].checkout;
@@ -54,6 +54,7 @@ export default function CartDrawer({ isOpen, onClose }: { isOpen: boolean, onClo
         setOrderId(data.trackingId);
         setStep("success");
         clearCart();
+        if (onOrderSuccess) onOrderSuccess();
       }
     } catch (error) {
       console.error("Error creating order:", error);

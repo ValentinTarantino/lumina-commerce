@@ -205,7 +205,7 @@ export const translations = {
       emptyDesc: "Your next piece of elite technology is waiting for you.",
       quantity: "Quantity",
       remove: "Remove product",
-      total: "Final Total",
+      total: "GRAND TOTAL",
       proceed: "Proceed to Shipping",
       confirm: "Confirm Order",
       emptyCart: "Empty Cart",
