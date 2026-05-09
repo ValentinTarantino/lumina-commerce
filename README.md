@@ -49,4 +49,3 @@
 *   **Authentication**: NextAuth.js.
 
 ---
-*Created with passion by Lumina Tech Hub.*
