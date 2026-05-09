@@ -127,7 +127,7 @@ export default function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:8000/products');
+        const response = await fetch('/api/py/products');
         const data = await response.json();
         setProducts(data);
         setIsLoading(false);
