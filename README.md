@@ -1,4 +1,4 @@
-# 💎 LUMINA COMMERCE
+#  LUMINA COMMERCE
 
 [Español](#español) | [English](#english)
 

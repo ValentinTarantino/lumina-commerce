@@ -273,9 +273,9 @@ export default function Home() {
                           </button>
                           <span className="w-8 text-center font-black italic">{quantity}</span>
                           <button 
-                            onClick={() => setQuantity(Math.min(5, quantity + 1))}
-                            className={`p-1 transition-colors ${quantity >= 5 ? 'text-white/10 cursor-not-allowed' : 'hover:text-indigo-400'}`}
-                            disabled={quantity >= 5}
+                            onClick={() => setQuantity(Math.min(selectedProduct.stock || 5, quantity + 1))}
+                            className={`p-1 transition-colors ${quantity >= (selectedProduct.stock || 5) ? 'text-white/10 cursor-not-allowed' : 'hover:text-indigo-400'}`}
+                            disabled={quantity >= (selectedProduct.stock || 5)}
                           >
                             <Plus size={16} />
                           </button>
@@ -335,7 +335,6 @@ export default function Home() {
               </div>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/40">LUMINA.</span>
             </motion.div>
-            
             <div className="hidden lg:flex items-center gap-8 text-[13px] font-bold uppercase tracking-widest text-white/40">
               <button 
                 onClick={() => document.getElementById('productos')?.scrollIntoView({ behavior: 'smooth' })}
@@ -358,6 +357,39 @@ export default function Home() {
                 {t.nav.tracking}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-indigo-500 transition-all group-hover:w-full"></span>
               </button>
+            </div>
+
+            {/* Live Status Ticker */}
+            <div className="hidden lg:flex items-center gap-3 px-6 py-1.5 bg-white/[0.03] border border-white/[0.05] rounded-full backdrop-blur-md mx-auto">
+              <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(99,102,241,0.6)]"></div>
+              <div className="h-4 overflow-hidden min-w-[200px]">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={Math.floor(Date.now() / 4000)}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "circOut" }}
+                    className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 italic flex items-center gap-2"
+                  >
+                    {lang === 'es' ? (
+                      [
+                        "Sincronización Global: Activa",
+                        "iPhone 15 Pro: Stock Limitado",
+                        "Envíos Prioritarios: Disponibles",
+                        "Nuevos Ingresos: Mayo 2026"
+                      ][Math.floor(Date.now() / 4000) % 4]
+                    ) : (
+                      [
+                        "Global Sync: Active",
+                        "iPhone 15 Pro: Low Stock",
+                        "Priority Shipping: Available",
+                        "New Arrivals: May 2026"
+                      ][Math.floor(Date.now() / 4000) % 4]
+                    )}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
           
@@ -469,6 +501,28 @@ export default function Home() {
                 </button>
               </div>
 
+              {/* Mobile Ticker */}
+              <div className="mb-12 p-4 bg-white/[0.03] border border-white/[0.05] rounded-2xl flex items-center gap-3">
+                <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(99,102,241,0.6)]"></div>
+                <div className="h-4 overflow-hidden flex-1">
+                  <AnimatePresence mode="wait">
+                    <motion.p
+                      key={Math.floor(Date.now() / 4000)}
+                      initial={{ y: 10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -10, opacity: 0 }}
+                      className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 italic"
+                    >
+                      {lang === 'es' ? (
+                        ["Sincronización Global: Activa", "iPhone 15 Pro: Stock Limitado", "Envíos Prioritarios: Disponibles", "Nuevos Ingresos: Mayo 2026"][Math.floor(Date.now() / 4000) % 4]
+                      ) : (
+                        ["Global Sync: Active", "iPhone 15 Pro: Low Stock", "Priority Shipping: Available", "New Arrivals: May 2026"][Math.floor(Date.now() / 4000) % 4]
+                      )}
+                    </motion.p>
+                  </AnimatePresence>
+                </div>
+              </div>
+
               <div className="flex flex-col gap-6 mb-auto">
                 <button 
                   onClick={() => {
@@ -497,6 +551,36 @@ export default function Home() {
                 >
                   {t.nav.tracking}
                 </button>
+              </div>
+
+              <div className="mt-auto pt-8 border-t border-white/5 flex flex-col gap-6">
+                <button 
+                  onClick={() => toggleLang()}
+                  className="flex items-center justify-between p-4 bg-white/5 border border-white/10 rounded-2xl group"
+                >
+                  <div className="flex items-center gap-3">
+                    <Globe className="w-5 h-5 text-indigo-400" />
+                    <span className="text-sm font-black uppercase tracking-widest">{lang === 'es' ? 'Idioma' : 'Language'}</span>
+                  </div>
+                  <span className="text-xs font-black text-indigo-400">{lang === "es" ? "ESPAÑOL" : "ENGLISH"}</span>
+                </button>
+
+                {session ? (
+                  <button 
+                    onClick={() => signOut()}
+                    className="w-full p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-400 text-xs font-black uppercase tracking-[0.2em] italic flex items-center justify-center gap-3"
+                  >
+                    <Zap className="w-3 h-3 fill-red-400" />
+                    {lang === 'es' ? 'Cerrar Sesión' : 'Sign Out'}
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => signIn('google')}
+                    className="w-full p-4 bg-white text-black rounded-2xl text-xs font-black uppercase tracking-[0.2em] italic hover:bg-indigo-400 transition-colors"
+                  >
+                    {lang === 'es' ? 'Iniciar Sesión' : 'Sign In'}
+                  </button>
+                )}
               </div>
             </motion.div>
           </>
@@ -1067,8 +1151,8 @@ export default function Home() {
 
             {/* Tech Stack Badges */}
             <div className="flex items-center gap-6 opacity-60 hover:opacity-100 transition-opacity duration-700">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-white rounded-full"></div>
+              <div className="flex items-center gap-2 group/tech">
+                <Zap className="w-2.5 h-2.5 text-white fill-white group-hover/tech:text-indigo-400 transition-colors" />
                 <span className="text-[9px] font-black uppercase tracking-widest italic">Next.js 15</span>
               </div>
               <div className="flex items-center gap-2">

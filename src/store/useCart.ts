@@ -31,7 +31,7 @@ export const useCart = create<CartStore>()(
         const existingItem = currentItems.find((item) => item.id === product.id);
 
         if (existingItem) {
-          const newQuantity = Math.min(existingItem.quantity + quantity, 5);
+          const newQuantity = Math.min(existingItem.quantity + quantity, product.stock || 5);
           set({
             items: currentItems.map((item) =>
               item.id === product.id
@@ -40,7 +40,7 @@ export const useCart = create<CartStore>()(
             ),
           });
         } else {
-          set({ items: [...currentItems, { ...product, quantity: Math.min(quantity, 5) }] });
+          set({ items: [...currentItems, { ...product, quantity: Math.min(quantity, product.stock || 5) }] });
         }
       },
       removeItem: (id) => {

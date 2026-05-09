@@ -41,7 +41,7 @@ async def get_products():
             "category": "Celulares",
             "description": "El iPhone más avanzado hasta la fecha, con chasis de titanio, chip A17 Pro y el sistema de cámaras más potente en un smartphone.",
             "description_en": "The most advanced iPhone to date, featuring a titanium chassis, A17 Pro chip, and the most powerful camera system ever on a smartphone.",
-            "stock": random.randint(1, 5)
+            "stock": 2
         },
         {
             "id": "c2",

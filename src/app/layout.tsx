@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Lumina Commerce | Premium Tech Store",
   description: "Experience the future of hardware with Lumina.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
