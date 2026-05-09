@@ -28,7 +28,7 @@ class Product(BaseModel):
 async def root():
     return {"message": "Welcome to Lumina API"}
 
-@app.get("/products", response_model=List[Product])
+@app.get("/api/py/products", response_model=List[Product])
 async def get_products():
     import random
     products = [
@@ -68,7 +68,7 @@ async def get_products():
             "id": "t1",
             "name": "Samsung Neo QLED 4K",
             "price": 3500.0,
-            "image": "https://plus.unsplash.com/premium_photo-1683141392308-aaa39d916686?q=80&w=880&auto=format&fit=crop",
+            "image": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&q=80&w=800",
             "category": "Televisores",
             "description": "Experimenta una claridad asombrosa con la resolución 4K y la tecnología Quantum Matrix Pro para un contraste inigualable.",
             "description_en": "Experience breathtaking clarity with 4K resolution and Quantum Matrix Pro technology for unrivaled contrast and depth in every scene.",
@@ -127,7 +127,3 @@ async def get_products():
         }
     ]
     return products
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
